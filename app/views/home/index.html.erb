@@ -1,3 +1,33 @@
+ <ul class="navbar-nav">
+        <li class="nav-item"><%= link_to "Get The Perks In The App", announcements_path, class: "nav-link #{unread_announcements(current_user)}" %></li>
+        <% if user_signed_in? %>
+
+        <li class="nav-item">
+          <%= link_to notifications_path, class: "nav-link" do %>
+            <span><i class="bi bi-bell-fill"></i></span>
+          <% end %>
+         </li>
+
+          <li class="nav-item dropdown">
+            <%= link_to "#", id: "navbar-dropdown", class: "nav-link dropdown-toggle", data: { target: "nav-account-dropdown", bs_toggle: "dropdown" }, aria: { haspopup: true, expanded: false } do %>
+              <%= image_tag avatar_path(current_user, size: 40), height: 20, width: 20, class: "rounded" %>
+            <% end %>
+            <div id="nav-account-dropdown" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown">
+              <%= link_to "Settings", edit_user_registration_path, class: "dropdown-item btn btn-default btn-sm" %>
+              <% if current_user.admin? %>
+                <div class="dropdown-divider"></div>
+                <%= link_to "Admin Area", admin_root_path, class: "dropdown-item btn btn-default btn-sm" %>
+              <% end %>
+              <div class="dropdown-divider"></div>
+              <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "dropdown-item btn btn-default btn-sm" %>
+            </div>
+          </li>
+
+        <% else %>
+          <li class="nav-item"><%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Login", new_user_session_path, class: "nav-link" %></li>
+        <% end %>
+      </ul>
 <div class="center jumbotron mt-5 mb-4">
   <div class="container">
     <div class="center">
